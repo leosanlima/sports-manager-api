@@ -31,8 +31,11 @@ RUN a2enmod rewrite
 RUN composer install
 
 
+# Definir o ponto de entrada para o container, aguardando o banco de dados
+ENTRYPOINT ["./wait-for-it.sh", "db:3306", "--timeout=60", "--strict", "--"]
+
 # Expor a porta 80
 EXPOSE 80
 
-# Rodar o servidor Apache
-CMD ["apache2-foreground"]
+# Comando principal após o banco de dados estar pronto
+CMD ["sh", "-c", "composer run-dev && apache2-foreground"]

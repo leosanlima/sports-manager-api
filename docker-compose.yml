@@ -19,6 +19,7 @@ services:
       - DB_PASSWORD=root
     depends_on:
       - db
+    container_name: sports-manager-app
 
   db:
     image: mysql:8.0
@@ -30,6 +31,7 @@ services:
       - dbdata:/var/lib/mysql
     ports:
       - "3306:3306"
+    container_name: sports-manager-db
 
 volumes:
   dbdata:
