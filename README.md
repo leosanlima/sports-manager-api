@@ -19,8 +19,8 @@ An API built with Laravel 10 to manage sports data, including Players, Teams, an
 1. **Clone the repository:**
 
    ```bash
-   git clone git@github.com:leosanlima/sports-manager-api-laravel.git
-   cd sports-manager-api-laravel
+   git clone git@github.com:leosanlima/sports-manager-api.git
+   cd sports-manager-api
    ```
 
 2. **Build and start Docker containers:**
