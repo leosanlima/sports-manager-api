@@ -11,10 +11,8 @@ An API built with Laravel 10 to manage sports data, including Players, Teams, an
 - [Features & Endpoints](#features--endpoints)
 - [Authentication](#authentication)
 - [Access Profiles & Permissions](#access-profiles--permissions)
+- [API Usage Examples](#api-usage-examples)
 - [Documentation](#documentation)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
@@ -97,8 +95,168 @@ The project implements two main access profiles:
 - **Admin**: Can create, read, update, and delete all resources.
 - **User**: Can create, read, and update resources, but not delete them.
 
+## API Usage Examples
+
+### Authentication
+
+#### 1. Login
+
+**Endpoint**: `POST /api/login`
+
+**Request Header**:
+```
+Content-Type: application/json
+```
+
+**Request Body**:
+```json
+{
+  "email": "admin@admin.com",
+  "password": "admin.1234"
+}
+```
+
+**Response**:
+```json
+{
+  "token": "your-auth-token"
+}
+```
+
+#### 2. Logout
+
+**Endpoint**: `POST /api/logout`
+
+**Request Header**:
+```
+Authorization: Bearer {your-auth-token}
+```
+
+**Response**:
+```json
+{
+  "message": "Logged out successfully."
+}
+```
+
+### Players Resource
+
+#### 1. Create a New Player
+
+**Endpoint**: `POST /api/players`
+
+**Request Header**:
+```
+Authorization: Bearer {your-auth-token}
+Content-Type: application/json
+```
+
+**Request Body**:
+```json
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "position": "Forward",
+  "height": 6.5,
+  "weight": 220,
+  "college": "Duke",
+  "country": "USA"
+}
+```
+
+**Response**:
+```json
+{
+  "id": 1,
+  "first_name": "John",
+  "last_name": "Doe",
+  "position": "Forward",
+  "height": 6.5,
+  "weight": 220,
+  "college": "Duke",
+  "country": "USA",
+  "team": null
+}
+```
+
+#### 2. Retrieve a List of Players
+
+**Endpoint**: `GET /api/players`
+
+**Request Header**:
+```
+Authorization: Bearer {your-auth-token}
+```
+
+**Response**:
+```json
+[
+  {
+    "id": 1,
+    "first_name": "John",
+    "last_name": "Doe",
+    "position": "Forward",
+    "height": 6.5,
+    "weight": 220,
+    "college": "Duke",
+    "country": "USA",
+    "team": null
+  },
+  ...
+]
+```
+
+#### 3. Update a Player
+
+**Endpoint**: `PUT /api/players/{id}`
+
+**Request Header**:
+```
+Authorization: Bearer {your-auth-token}
+Content-Type: application/json
+```
+
+**Request Body**:
+```json
+{
+  "first_name": "Jane",
+  "last_name": "Smith",
+  "position": "Guard"
+}
+```
+
+**Response**:
+```json
+{
+  "id": 1,
+  "first_name": "Jane",
+  "last_name": "Smith",
+  "position": "Guard",
+  "height": 6.5,
+  "weight": 220,
+  "college": "Duke",
+  "country": "USA",
+  "team": null
+}
+```
+
+#### 4. Delete a Player
+
+**Endpoint**: `DELETE /api/players/{id}`
+
+**Request Header**:
+```
+Authorization: Bearer {your-auth-token}
+```
+
+**Response**:
+```json
+{
+  "message": "Player deleted successfully."
+}
+```
 
 ## Documentation
 
-- **Postman Collection**: [Download Postman Collection](app/Docs/Sport%20Manager%20API.postman_collection.json)
+- **Postman Collection**: [Download Postman Collection](app/Docs/Sport%20Manager%20API.postman_collection.json) - This Postman collection contains all configured player endpoints for the API, allowing you to easily test operations such as creating, reading, updating, and deleting players.
 
