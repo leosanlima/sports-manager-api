@@ -18,8 +18,34 @@ class AuthController extends Controller
     {
         $this->authRepository = $authRepository;
     }
-    
+
     /**
+     * 
+     * @OA\Post(
+     *     path="/api/login",
+     *     summary="Login de um usuário",
+     *     tags={"Authentication"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", type="string", format="email", example="admin@admin.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="admin.1234")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login realizado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string", example="eyJhbGciOiJIUzI1NiIsInR5...")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Credenciais inválidas"
+     *     )
+     * )
+     *
      * Handles user login.
      *
      * @param Request $request 
@@ -40,5 +66,4 @@ class AuthController extends Controller
     {
         return $this->authRepository->logout($request);
     }
-
 }

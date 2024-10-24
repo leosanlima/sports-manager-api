@@ -156,9 +156,9 @@ Content-Type: application/json
 {
   "first_name": "John",
   "last_name": "Doe",
-  "position": "Forward",
-  "height": 6.5,
-  "weight": 220,
+  "position": "F",
+  "height": "6.5",
+  "weight": "220",
   "college": "Duke",
   "country": "USA"
 }
@@ -170,9 +170,9 @@ Content-Type: application/json
   "id": 1,
   "first_name": "John",
   "last_name": "Doe",
-  "position": "Forward",
-  "height": 6.5,
-  "weight": 220,
+  "position": "F",
+  "height": "6.5",
+  "weight": "220",
   "college": "Duke",
   "country": "USA",
   "team": null
@@ -195,12 +195,20 @@ Authorization: Bearer {your-auth-token}
     "id": 1,
     "first_name": "John",
     "last_name": "Doe",
-    "position": "Forward",
-    "height": 6.5,
-    "weight": 220,
+    "position": "F",
+    "height": "6.5",
+    "weight": "220",
     "college": "Duke",
     "country": "USA",
-    "team": null
+    "team": {
+        "id": 9,
+        "conference": "East",
+        "division": "Central",
+        "city": "Detroit",
+        "name": "Pistons",
+        "full_name": "Detroit Pistons",
+        "abbreviation": "DET"
+    }
   },
   ...
 ]
@@ -221,7 +229,7 @@ Content-Type: application/json
 {
   "first_name": "Jane",
   "last_name": "Smith",
-  "position": "Guard"
+  "position": "G"
 }
 ```
 
@@ -231,12 +239,20 @@ Content-Type: application/json
   "id": 1,
   "first_name": "Jane",
   "last_name": "Smith",
-  "position": "Guard",
-  "height": 6.5,
-  "weight": 220,
+  "position": "G",
+  "height": "6.5",
+  "weight": "220",
   "college": "Duke",
   "country": "USA",
-  "team": null
+  "team": {
+        "id": 9,
+        "conference": "East",
+        "division": "Central",
+        "city": "Detroit",
+        "name": "Pistons",
+        "full_name": "Detroit Pistons",
+        "abbreviation": "DET"
+    }
 }
 ```
 
@@ -259,4 +275,6 @@ Authorization: Bearer {your-auth-token}
 ## Documentation
 
 - **Postman Collection**: [Download Postman Collection](app/Docs/Sport%20Manager%20API.postman_collection.json) - This Postman collection contains all configured player endpoints for the API, allowing you to easily test operations such as creating, reading, updating, and deleting players.
+- **Swagger Documentation**: [Swagger Documentation](app/Docs/api-docs.json) - This Swagger documentation contains the complete API specification, allowing you to explore all endpoints and their configurations.
+- **Swagger UI**: [http://localhost:8008/api/documentation/](http://localhost:8008/api/documentation/) - Access the interactive Swagger UI to explore and test all available API endpoints.
 
