@@ -38,4 +38,4 @@ ENTRYPOINT ["./wait-for-it.sh", "db:3306", "--timeout=60", "--strict", "--"]
 EXPOSE 80
 
 # Comando principal após o banco de dados estar pronto
-CMD ["sh", "-c", "composer run-dev && apache2-foreground"]
+CMD ["sh", "-c", "composer install && composer run-dev && apache2-foreground"]
