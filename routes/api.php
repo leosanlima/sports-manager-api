@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
-use App\Http\Controllers\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,10 +22,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::apiResource('players', PlayerController::class);
-    Route::apiResource('teams', TeamController::class);
-    Route::apiResource('games', GameController::class);
-
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
 });

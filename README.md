@@ -1,66 +1,104 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sports Manager API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+An API built with Laravel 10 to manage sports data, including Players, Teams, and Games, with integration to the public BallDontLie API. The application implements authentication using Laravel Sanctum and follows best development practices, such as the repository pattern.
 
-## About Laravel
+## Table of Contents
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Installation](#installation)
+- [Usage](#usage)
+- [Pre-created Users](#pre-created-users)
+- [Tests](#tests)
+- [Features & Endpoints](#features--endpoints)
+- [Authentication](#authentication)
+- [Access Profiles & Permissions](#access-profiles--permissions)
+- [Documentation](#documentation)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clone the repository:**
 
-## Learning Laravel
+   ```bash
+   git clone git@github.com:leosanlima/sports-manager-api-laravel.git
+   cd sports-manager-api-laravel
+   ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Build and start Docker containers:**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+   ```bash
+   docker-compose up -d
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+   This step will also create default users with specific roles (see [Pre-created Users](#pre-created-users)).
 
-## Laravel Sponsors
+4. **Access the API:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   The API will be available at `http://localhost:8008`.
 
-### Premium Partners
+## Usage
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Synchronize with BallDontLie
 
-## Contributing
+To fetch and synchronize the game data from the BallDontLie public API, run the following command:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+docker exec -it sports-manager-app php artisan sync:sports-data
+```
 
-## Code of Conduct
+This command will retrieve and update the games data in the database.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Pre-created Users
 
-## Security Vulnerabilities
+During the installation, the following users are automatically created with predefined roles:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. **Admin User**:
+   - **Email**: `admin@admin.com`
+   - **Password**: `admin.1234`
+   - **Role**: Administrator
 
-## License
+2. **Regular User**:
+   - **Email**: `user@user.com`
+   - **Password**: `user.1234`
+   - **Role**: User
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+These users can be used to log in and test different access levels in the application.
+
+## Tests
+
+To run the automated tests, execute the following command:
+
+```bash
+docker exec -it sports-manager-api-app-1 php artisan test
+```
+
+This command will execute all the test cases defined in the `tests` directory, ensuring that key functionalities such as authentication, CRUD operations, and other features work correctly.
+
+## Features & Endpoints
+
+- **Players CRUD**:
+  - Create, Read, Update, Delete Players
+  - Search by name
+- **Games Synchronization**:
+  - Fetch and sync game data from the public BallDontLie API
+
+## Authentication
+
+This project uses **Laravel Sanctum** for API authentication. 
+
+- **Login Endpoint**: `/api/login` to obtain a `X-Authorization` token.
+- **Logout Endpoint**: `/api/logout` to invalidate the token and log out.
+
+## Access Profiles & Permissions
+
+The project implements two main access profiles:
+
+- **Admin**: Can create, read, update, and delete all resources.
+- **User**: Can create, read, and update resources, but not delete them.
+
+
+## Documentation
+
+- **Postman Collection**: [Download Postman Collection](app/Docs/Sport%20Manager%20API.postman_collection.json)
+
