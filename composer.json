@@ -51,7 +51,8 @@
         "run-dev": [
             "@php artisan migrate --seed",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi",
+            "chmod -R 777 storage/"
         ]
     },
     "extra": {
