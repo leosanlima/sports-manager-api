@@ -49,7 +49,9 @@
             "@php artisan key:generate --ansi"
         ],
         "run-dev": [
-            "@php artisan migrate --seed"
+            "@php artisan migrate --seed",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate --ansi"
         ]
     },
     "extra": {
