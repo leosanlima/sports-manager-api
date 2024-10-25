@@ -19,16 +19,20 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Configurações do Apache
 WORKDIR /var/www/html
 COPY . /var/www/html
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html
-RUN chmod -R 775 /var/www/html/storage
-
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html && \
+    chmod -R 775 /var/www/html/storage && \
+    sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf && \
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+    a2enmod rewrite
 
 RUN a2enmod rewrite
 
 # Instalar as dependências do projeto
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader
+
+COPY wait-for-it.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wait-for-it.sh
 
 
 # Definir o ponto de entrada para o container, aguardando o banco de dados
