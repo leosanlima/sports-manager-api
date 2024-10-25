@@ -68,7 +68,7 @@ These users can be used to log in and test different access levels in the applic
 To run the automated tests, execute the following command:
 
 ```bash
-docker exec -it sports-manager-api-app-1 php artisan test
+docker exec -it sports-manager-app php artisan test
 ```
 
 This command will execute all the test cases defined in the `tests` directory, ensuring that key functionalities such as authentication, CRUD operations, and other features work correctly.
